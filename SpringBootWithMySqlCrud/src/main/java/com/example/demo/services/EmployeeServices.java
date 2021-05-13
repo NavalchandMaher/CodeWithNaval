@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.Task;
 import com.example.demo.repo.EmployeeRepo;
 
 @Service
@@ -18,6 +19,12 @@ public class EmployeeServices {
 	// insert employee
 	public Employee insertEmployee(Employee emp)
 	{
+		for(Task task : emp.getTask())
+		{
+			task.setEmployee(emp);
+		}
+		emp.setTask(emp.getTask());
+		
 		return employeeRepo.save(emp);
 	}
 	
